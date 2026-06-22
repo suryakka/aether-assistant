@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+
+# Build
+dist/
+target/
+*.egg-info/
+apps/desktop/src-tauri/binaries/
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# OS
+.DS_Store
+
+# Aether runtime
+.aether/
+*.log
+
+# Test / coverage
+.coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

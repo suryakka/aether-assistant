@@ -1,0 +1,10 @@
+{
+  "name": "aether-assistant",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local-first AI Desktop Assistant",
+  "scripts": {
+    "dev:desktop": "cd apps/desktop && pnpm tauri dev",
+    "dev:backend": "cd apps/backend && uvicorn aether.main:app --reload --host 127.0.0.1 --port 8787"
+  }
+}
