@@ -4,7 +4,10 @@
   "version": "0.1.0",
   "description": "Local-first AI Desktop Assistant",
   "scripts": {
+    "dev": "bash scripts/dev.sh",
+    "dev:backend": "cd apps/backend && source .venv/bin/activate 2>/dev/null; uvicorn aether.main:app --reload --host 127.0.0.1 --port 8787",
     "dev:desktop": "cd apps/desktop && pnpm tauri dev",
-    "dev:backend": "cd apps/backend && uvicorn aether.main:app --reload --host 127.0.0.1 --port 8787"
+    "test:backend": "cd apps/backend && source .venv/bin/activate && pytest -v",
+    "lint:backend": "cd apps/backend && source .venv/bin/activate && ruff check ."
   }
 }

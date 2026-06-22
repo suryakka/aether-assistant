@@ -10,11 +10,20 @@
     "frontendDist": "../dist"
   },
   "app": {
+    "macOSPrivateApi": true,
     "windows": [
       {
+        "label": "main",
         "title": "Aether",
-        "width": 800,
-        "height": 600
+        "width": 680,
+        "height": 520,
+        "alwaysOnTop": true,
+        "decorations": false,
+        "transparent": true,
+        "visible": true,
+        "center": true,
+        "resizable": true,
+        "skipTaskbar": false
       }
     ],
     "security": {

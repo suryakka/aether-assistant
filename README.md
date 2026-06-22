@@ -2,52 +2,95 @@
 
 Local-first AI desktop assistant — privacy-first, offline-capable, cross-platform.
 
-**Personal project** by [suryakka](https://github.com/suryakka).
+**Personal project** by [suryakka](https://github.com/suryakka) · [github.com/suryakka/aether-assistant](https://github.com/suryakka/aether-assistant)
+
+## Features (Phase 1)
+
+- Floating overlay UI with dark mode
+- Global shortcut `Alt+Space` to toggle visibility
+- Streaming chat via local Ollama (default: `qwen3:8b`)
+- WebSocket real-time communication
+- Clean Architecture Python backend
 
 ## Stack
 
-- **Frontend:** Tauri 2 + React + TypeScript
-- **Backend:** Python FastAPI (sidecar)
-- **LLM:** Ollama (local inference)
-- **STT:** Silero VAD + faster-whisper (EN + ID)
+| Layer | Tech |
+|---|---|
+| Desktop | Tauri 2 + React + TypeScript + Tailwind |
+| Backend | Python FastAPI + WebSocket |
+| LLM | Ollama (local inference) |
+
+## Quick start
+
+### Prerequisites
+
+- Node.js 20+, pnpm
+- Rust ([rustup.rs](https://rustup.rs))
+- Python 3.11+
+- [Ollama](https://ollama.com) with model pulled:
+
+```bash
+brew install ollama
+ollama pull qwen3:8b
+```
+
+### Run (dev)
+
+```bash
+# Terminal 1 — backend
+cd apps/backend
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+uvicorn aether.main:app --reload --port 8787
+
+# Terminal 2 — desktop
+cd apps/desktop
+pnpm install
+pnpm tauri dev
+```
+
+Or use the combined script:
+
+```bash
+bash scripts/dev.sh
+```
+
+### Docker Ollama (optional)
+
+Native Ollama is recommended on Apple Silicon. For Linux/CI:
+
+```bash
+docker compose -f docker/docker-compose.dev.yml up -d
+```
 
 ## Project structure
 
 ```
 aether-assistant/
 ├── apps/
-│   ├── desktop/     # Tauri + React overlay UI
-│   └── backend/     # Python FastAPI services
-├── packages/        # Shared SDK & types (planned)
-├── plugins/         # Optional plugins (planned)
-├── docker/          # Dev environment (planned)
-└── scripts/         # Build & dev scripts
+│   ├── desktop/          # Tauri + React overlay
+│   └── backend/          # FastAPI Clean Architecture
+├── docker/               # Dev services
+├── scripts/              # dev.sh
+└── .github/workflows/    # CI
 ```
 
-## Development
+## Backend architecture
 
-### Prerequisites
-
-- Node.js 20+, pnpm
-- Rust (for Tauri)
-- Python 3.11+
-- [Ollama](https://ollama.com) (for local LLM)
-
-### Desktop app
-
-```bash
-cd apps/desktop
-pnpm install
-pnpm tauri dev
+```
+aether/
+├── domain/               # Entities + ports
+├── application/          # Use cases
+├── infrastructure/       # Ollama adapter, logging
+├── presentation/         # REST + WebSocket
+└── container.py          # Dependency injection
 ```
 
-### Backend (planned)
+## Tests
 
 ```bash
-cd apps/backend
-python -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
-uvicorn aether.main:app --reload --port 8787
+cd apps/backend && pytest -v
+cd apps/desktop && pnpm lint
 ```
 
 ## License

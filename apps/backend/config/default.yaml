@@ -1,0 +1,26 @@
+app:
+  name: Aether Assistant
+  version: "0.1.0"
+  host: "127.0.0.1"
+  port: 8787
+
+llm:
+  provider: ollama
+  base_url: "http://127.0.0.1:11434"
+  model: "qwen3:8b"
+  timeout_seconds: 120
+
+stt:
+  default_language: auto
+  whisper_model: medium
+
+screen:
+  capture_interval_ms: 750
+  mode: active_window
+
+memory:
+  short_term: true
+  long_term: false
+
+permissions:
+  network_default: ask
